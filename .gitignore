@@ -7,3 +7,6 @@ workflows/**/.n8n-state.json
 
 # Configs de outros agentes de IA
 .gemini/
+
+# Workflows (não versionar)
+workflows/
