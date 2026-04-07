@@ -11,6 +11,23 @@
 - **SEMPRE** fazer push com `npx n8nac push`
 - **SEMPRE** usar UUIDs v4 reais e únicos para os `id` de cada nó (formato: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)
 
+## Comportamento proativo — consultar antes de perguntar
+Antes de criar qualquer workflow, o agente **DEVE** buscar autonomamente as informações necessárias no n8n, sem perguntar ao usuário o que já pode ser descoberto:
+
+1. **Credenciais e instâncias** — fazer `npx n8nac pull` em um workflow existente que use o mesmo serviço (Evolution, Gmail, OpenAI, etc.) para extrair o `id` e `name` da credencial já configurada
+2. **Instância Evolution** — se o usuário mencionar uma instância pelo nome (ex: "DoanZap"), buscar em workflows existentes o `instanceName` e o `id` da credencial `evolutionApi` correspondente
+3. **Número de destino WhatsApp** — se o usuário disser que quer receber na instância X, usar o `instanceName` dessa instância como remetente; para o número de destino, perguntar apenas se não houver como inferir do contexto
+4. **Estrutura de nós desconhecidos** — sempre fazer pull de um workflow existente que use o mesmo tipo de nó antes de criá-lo, para garantir a estrutura correta de parâmetros
+
+**Fluxo obrigatório antes de criar:**
+```
+1. npx n8nac list                          → identificar workflows relevantes
+2. npx n8nac pull <id>                     → extrair credenciais e estrutura de nós
+3. Criar o workflow com os dados reais     → sem placeholders como "CONFIGURE_AQUI"
+```
+
+Só perguntar ao usuário quando a informação for impossível de descobrir automaticamente (ex: número de telefone de terceiros, dados de negócio específicos).
+
 ---
 
 ## Estrutura do arquivo `.workflow.ts`

@@ -1,6 +1,6 @@
 # Credenciais e configs locais
 n8nac-config.json
-.kiro/settings/mcp.json
+.kiro/settings/
 
 # Estado de sync local
 workflows/**/.n8n-state.json
