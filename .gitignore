@@ -1,0 +1,9 @@
+# Credenciais e configs locais
+n8nac-config.json
+.kiro/settings/mcp.json
+
+# Estado de sync local
+workflows/**/.n8n-state.json
+
+# Configs de outros agentes de IA
+.gemini/
